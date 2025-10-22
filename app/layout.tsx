@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
   title: "My App - GitHub Pages",
@@ -16,12 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <SidebarProvider>
-          <AppSidebar />
-          <main className="flex-1 w-full">
-            {children}
-          </main>
-        </SidebarProvider>
+        {children}
       </body>
     </html>
   );
