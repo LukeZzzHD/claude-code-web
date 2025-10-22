@@ -39,7 +39,6 @@ export function NavMain({
         {items.map((item) => (
           <Collapsible
             key={item.title}
-            asChild
             defaultOpen={item.isActive}
             className="group/collapsible"
           >

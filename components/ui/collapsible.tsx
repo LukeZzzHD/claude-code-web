@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
 import { cn } from "@/lib/utils"
 
 const CollapsibleContext = React.createContext<{
@@ -39,16 +40,21 @@ const Collapsible = React.forwardRef<HTMLDivElement, CollapsibleProps>(
 )
 Collapsible.displayName = "Collapsible"
 
+interface CollapsibleTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  asChild?: boolean
+}
+
 const CollapsibleTrigger = React.forwardRef<
   HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement>
->(({ onClick, children, className, ...props }, ref) => {
+  CollapsibleTriggerProps
+>(({ asChild = false, onClick, children, className, ...props }, ref) => {
   const { open, onOpenChange } = useCollapsible()
+  const Comp = asChild ? Slot : "button"
 
   return (
-    <button
+    <Comp
       ref={ref}
-      type="button"
+      type={asChild ? undefined : "button"}
       onClick={(e) => {
         onOpenChange(!open)
         onClick?.(e)
@@ -57,7 +63,7 @@ const CollapsibleTrigger = React.forwardRef<
       {...props}
     >
       {children}
-    </button>
+    </Comp>
   )
 })
 CollapsibleTrigger.displayName = "CollapsibleTrigger"
